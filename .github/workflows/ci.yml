@@ -9,7 +9,7 @@ jobs:
     name: Laptop tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Engine against the simulated ESP-IDF host
         run: make sim
 
@@ -26,7 +26,7 @@ jobs:
           - app: host
             target: esp32
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Build
         shell: bash
         run: |

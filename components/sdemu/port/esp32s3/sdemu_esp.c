@@ -410,7 +410,7 @@ static void IRAM_ATTR wait_selected(void)
 
 static void IRAM_ATTR card_loop(void)
 {
-    const uint32_t m_sclk = s_m_sclk, m_mosi = s_m_mosi, m_cs = s_m_cs, sh_mosi = s_sh_mosi;
+    const uint32_t m_sclk = s_m_sclk, m_cs = s_m_cs, sh_mosi = s_sh_mosi;
     for (;;) {
         handle_requests();
         wait_selected();
