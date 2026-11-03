@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  sim:
+    name: Laptop tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Engine against the simulated ESP-IDF host
+        run: make sim
+
+  firmware:
+    name: Build ${{ matrix.app }} (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    container: espressif/idf:v5.5.5
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: card
+            target: esp32s3
+          - app: host
+            target: esp32
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        shell: bash
+        run: |
+          . "$IDF_PATH/export.sh"
+          idf.py -C apps/${{ matrix.app }} set-target ${{ matrix.target }}
+          idf.py -C apps/${{ matrix.app }} build
+      - name: Size
+        shell: bash
+        run: |
+          . "$IDF_PATH/export.sh"
+          idf.py -C apps/${{ matrix.app }} size

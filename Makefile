@@ -1,5 +1,6 @@
 # SD-SPI emulator
 #
+#   make setup     install system packages, ESP-IDF and serial port access
 #   make test      everything: laptop tests, build both firmwares, detect the
 #                  two boards, flash them, run the hardware tests, print a summary
 #   make sim       laptop tests only (no ESP-IDF, no boards)
@@ -11,7 +12,14 @@
 
 export CARD_PORT HOST_PORT IDF_EXPORT
 
-.PHONY: test sim build hwtest clean
+.PHONY: help setup test sim build hwtest clean
+.DEFAULT_GOAL := help
+
+help:
+	@sed -n '3,10p' Makefile | sed 's/^# \{0,1\}//'
+
+setup:
+	@tools/setup.sh
 
 test:
 	@tools/run_tests.sh all
