@@ -1,0 +1,9 @@
+name: corrupt_crc16
+description: Every read of LBA 4000 carries a wrong CRC16; LBA 4001 is fine.
+faults:
+  - action=corrupt_crc16 lba=4000 every=1
+steps:
+  - host: read 4000
+    expect: {status: fail, err: ESP_ERR_INVALID_CRC, step: read}
+  - host: read 4001
+    expect: {status: ok}

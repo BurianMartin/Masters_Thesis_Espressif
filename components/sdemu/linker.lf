@@ -1,0 +1,7 @@
+# Place the whole component in IRAM (code) and DRAM (rodata): no instruction
+# fetch or constant load from core 1 may miss the flash cache. A miss costs
+# hundreds of cycles, which is a whole bit at 400 kHz.
+[mapping:sdemu]
+archive: libsdemu.a
+entries:
+    * (noflash)

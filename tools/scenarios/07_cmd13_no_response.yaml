@@ -1,0 +1,11 @@
+name: cmd13_no_response
+description: >
+  The card does not answer the status check (CMD13) that follows the first
+  write. ESP-IDF only logs this: both writes are reported as successful.
+faults:
+  - action=no_response cmd=13 nth=1
+steps:
+  - host: write 7000
+    expect: {status: ok}
+  - host: write 7001
+    expect: {status: ok}

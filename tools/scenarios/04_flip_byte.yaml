@@ -1,0 +1,11 @@
+name: flip_byte
+description: >
+  Byte 100 of LBA 5000 is flipped on every read, with a valid CRC16.
+  The driver reports success; only the application's compare can notice.
+faults:
+  - action=flip_byte lba=5000 offset=100 mask=0x01 every=1
+steps:
+  - host: verify 5000
+    expect: {status: fail, err: ESP_OK, step: compare}
+  - host: verify 5001
+    expect: {status: ok}

@@ -1,0 +1,11 @@
+name: write_error
+description: The 2nd single-block write gets data response 0x0D; the 1st and 3rd succeed.
+faults:
+  - action=write_error cmd=24 nth=2
+steps:
+  - host: write 3000
+    expect: {status: ok}
+  - host: write 3001
+    expect: {status: fail, err: ESP_FAIL, step: write}
+  - host: write 3002
+    expect: {status: ok}

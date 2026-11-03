@@ -1,0 +1,11 @@
+name: baseline
+description: A normal card. Init, FAT and raw sector access must all work.
+faults: []
+steps:
+  - host: info
+    expect: {status: ok}
+  - host: fat 16
+    expect: {status: ok}
+    timeout: 120
+  - host: raw 2000 4
+    expect: {status: ok}

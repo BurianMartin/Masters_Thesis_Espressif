@@ -1,0 +1,9 @@
+name: write_busy
+description: The card holds MISO low (busy) for 300 ms after the first written block.
+faults:
+  - action=busy cmd=24 ms=300
+steps:
+  - host: write 6000
+    expect: {status: ok, min_ms: 300}
+  - host: write 6001
+    expect: {status: ok, max_ms: 290}

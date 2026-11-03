@@ -1,0 +1,9 @@
+name: cmd8_no_response
+description: >
+  The card ignores CMD8. ESP-IDF silently assumes a version-1 card and sends
+  ACMD41 without HCS, so an SDHC card never leaves idle: timeout after ~3 s.
+faults:
+  - action=no_response cmd=8 every=1
+steps:
+  - host: info
+    expect: {status: fail, err: ESP_ERR_TIMEOUT, min_ms: 2500}

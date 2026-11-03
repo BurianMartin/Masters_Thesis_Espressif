@@ -1,0 +1,25 @@
+menu "SDSPI test host"
+
+    config HOST_SD_FREQ_KHZ
+        int "SD clock after initialization (kHz)"
+        default 400
+        range 100 40000
+        help
+            The software-SPI card on the S3 only keeps up at low clocks.
+            ESP-IDF's own default is 20000 (SDMMC_FREQ_DEFAULT). Raise this
+            step by step for the clock sweep.
+
+    config HOST_PIN_SCLK
+        int "SCLK GPIO"
+        default 18
+    config HOST_PIN_MOSI
+        int "MOSI GPIO"
+        default 23
+    config HOST_PIN_MISO
+        int "MISO GPIO"
+        default 19
+    config HOST_PIN_CS
+        int "CS GPIO"
+        default 5
+
+endmenu

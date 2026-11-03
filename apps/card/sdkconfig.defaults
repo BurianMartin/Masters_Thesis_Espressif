@@ -1,0 +1,24 @@
+# ESP32-S3 card firmware. Every line here is load-bearing; see docs/DESIGN.md.
+CONFIG_IDF_TARGET="esp32s3"
+
+# 240 MHz: 600 CPU cycles per bit at 400 kHz instead of 400
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+
+# storage worker polls every tick
+CONFIG_FREERTOS_HZ=1000
+
+# 8 MB octal PSRAM (WROOM-1 N8R8 / N16R8) holds the RAM disk; core 1 never touches it
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+
+# core 1 deliberately never runs its idle task and never takes interrupts
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1=n
+CONFIG_ESP_INT_WDT_CHECK_CPU1=n
+
+# pcnt_unit_get_count()/clear_count() are called from the IRAM bit loop
+CONFIG_PCNT_CTRL_FUNC_IN_IRAM=y
+
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
